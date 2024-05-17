@@ -188,7 +188,7 @@ ui <- dashboardPage(
 server <- function(input, output) {
   
   #Information
-  addResourcePath("folder",paste0(getwd()))
+  addResourcePath("folder",paste0(getwd(), "/references"))
   output$pdf <- renderUI({
     tags$iframe(style="height:785px; width:100%", src="folder/calenviroreport.pdf")
   })
