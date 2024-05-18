@@ -27,12 +27,12 @@ If you would like to modify this project in your own way, here are the following
 ![image](https://github.com/Polymershot/Visualizing-California-Environmental-Data/assets/69413289/b7b6236f-22a3-4783-843d-ff8be0511533)
 
 ## Shiny App 
-It will take some time to load. If some elements aren't loading properly, please reload the page. To understand some of the more unknown terms, please take a glimpse at the information panel in the app.
+It will take some time to load. If some elements aren't loading properly, please reload the page. To understand some of the more unknown terms, please take a glimpse at the information panel in the app. I apologize in advance for the horrible graph color schemes. I am still working on what theme to use when the variable range is large and/or discrete.
 
 >https://polymershot72.shinyapps.io/California-Environment-Data/
 
 ## Remarks
-The actual dashboard created by the CalEnviroScreen4.0 researchers is miles ahead but by trying to see how far I could get in trying to replicate it, I learned a lot about project management. At first, I didn't even create a R project and just created the folders and files all mixed up. This led to me getting confused and thinking about just restarting. However, I ended up doing more research and finally learned the basics of Git/Github. I paid more attention to the project structure in terms of naming and folder placement. I also was introducted to the idea of making sure you have a list of packages needed for others to run the project.
+The actual dashboard created by the CalEnviroScreen4.0 researchers is miles ahead but by trying to see how far I could get in trying to replicate it, I learned a lot about project management. At first, I didn't even create a R project and just created the folders and files all mixed up. This led to me getting confused and thinking about just restarting. However, I ended up doing more research and finally learned the basics of Git/Github. I paid more attention to the project structure in terms of naming and folder placement. I also was introducted to the idea of making sure you have a list of packages needed for others to run the project. 
 
 ## Support
 If someone happens to come across this project and wants to know more, please contact me at rdn9177@gmail.com.
