@@ -13,7 +13,9 @@ If you would like to modify this project in your own way, here are the following
 3. You should be met with a new project wizard with three options.
 4. Select the version control option.
    -If you haven't set up Git and RStudio, please follow this guide:
+   
      >https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r
+     
 6. After doing so, the project should load and you should be met with a message at the consolse that says something like Project .... loading.
 7. Type renv::init() in the console to initiate the library loading process.
 8. Type renv::status() in the console to check that the packages needed for the project are all set.
