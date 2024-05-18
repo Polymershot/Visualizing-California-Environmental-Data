@@ -27,7 +27,7 @@ If you would like to modify this project in your own way, here are the following
 ![image](https://github.com/Polymershot/Visualizing-California-Environmental-Data/assets/69413289/b7b6236f-22a3-4783-843d-ff8be0511533)
 
 ## Shiny App 
-It will take some time to load. If some elements aren't loading properly, please reload the page.
+It will take some time to load. If some elements aren't loading properly, please reload the page. To understand some of the more unknown terms, please take a glimpse at the information panel in the app.
 
 >https://polymershot72.shinyapps.io/California-Environment-Data/
 
