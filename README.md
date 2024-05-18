@@ -28,7 +28,7 @@ If you would like to modify this project in your own way, here are the following
 
 ## Shiny App 
 >https://polymershot72.shinyapps.io/California-Environment-Data/
-
+It will take some time to load. 
 ## Remarks
 The actual dashboard created by the CalEnviroScreen4.0 researchers is miles ahead but by trying to see how far I could get in trying to replicate it, I learned a lot about project management. At first, I didn't even create a R project and just created the folders and files all mixed up. This led to me getting confused and thinking about just restarting. However, I ended up doing more research and finally learned the basics of Git/Github. I paid more attention to the project structure in terms of naming and folder placement. I also was introducted to the idea of making sure you have a list of packages needed for others to run the project.
 
