@@ -154,17 +154,7 @@ ui <- dashboardPage(
             fluidRow(
               box(plotOutput('histogram')),
               box(plotOutput('qqplot'))
-            ),
-            fluidRow(
-              column(box(plotOutput('cqplot')), width=12, offset = 3)
-            ),
-            fluidRow(
-                div(
-                p("The Chi-Square plot shows us that the CalEnviro4.0 data is not multivariate normal for the selected columns; which is to be expected."),
-                align="center"
-                )
             )
-            
           )
         ),
         
@@ -285,9 +275,6 @@ server <- function(input, output) {
     }
   )
   
-  output$cqplot <- renderPlot(
-   {cqplot(x=data, conf=0.95)}
-  )
 
  
 
