@@ -85,3 +85,4 @@ county_list <-  unique(county_shp$NAMELSAD)
 unwanted_vars = c("statefp", "countyfp", "tractce", "geoid", "geoidfq", "name", "namelsad", "mtfcc", "longitude", "latitude", "funcstat", "aland", "awater", "intptlat", "intptlon","geometry")
 shp_master_names = colnames(shp_and_master)
 
+

@@ -267,7 +267,7 @@ server <- function(input, output) {
     )@map
       
   })
-  
+
   
   #Filter by City
   output$citymap <- renderLeaflet(
