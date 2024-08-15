@@ -86,3 +86,4 @@ unwanted_vars = c("statefp", "countyfp", "tractce", "geoid", "geoidfq", "name", 
 shp_master_names = colnames(shp_and_master)
 
 
+
