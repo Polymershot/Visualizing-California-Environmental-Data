@@ -35,12 +35,32 @@ master_df <- inner_join(mysheets[[1]], mysheets[[2]]) %>% clean_names() %>%
     ces_4.0_score = ces_4_0_score,
     ces_4.0_percentile = ces_4_0_percentile,
     ces_4.0_percentile_range = ces_4_0_percentile_range,
-    pm_2.5 = pm2_5,
     pm_2.5_pctl = pm2_5_pctl,
     children_less_than_10_years_percent = children_10_years_percent,
     pop_10_through_64_years_percent = pop_10_64_years_percent,
     elderly_greater_than_64_years_percent = elderly_64_years_percent
   )
+
+
+#Select all columns associated with ethnicity/population characteristics
+ethnicity_cols <- names(mysheets[[2]] %>% select(!c("Census Tract", "CES 4.0 Score", "CES 4.0 Percentile", "CES 4.0 Percentile Range", "California County")) %>% clean_names() %>% rename(
+  children_less_than_10_years_percent = children_10_years_percent,
+  pop_10_through_64_years_percent = pop_10_64_years_percent,
+  elderly_greater_than_64_years_percent = elderly_64_years_percent
+));ethnicity_cols
+
+#Select all columns associated with scientific measures and percentile variables
+scientific_cols <- names(mysheets[[1]] %>% select(!c("Census Tract", "CES 4.0 Percentile Range", "Total Population", "California County" ,"ZIP", "Approximate Location", "Longitude", "Latitude", "CES 4.0 Score", "CES 4.0 Percentile", "Pollution Burden", "Pop. Char." ), -matches("Pctl")) %>% clean_names()
+);scientific_cols
+
+#Percentile Columns
+scientific_cols_pctl <- names(mysheets[[1]] %>% select(!c("Census Tract", "CES 4.0 Percentile Range", "California County" ,"ZIP", "Approximate Location", "Longitude", "Latitude", "CES 4.0 Score", "CES 4.0 Percentile", "Pollution Burden", "Pop. Char." ), matches("Pctl")) %>% clean_names() %>% rename(
+  pm_2.5 = pm2_5
+) %>% select(matches("Pctl")));scientific_cols_pctl
+
+#Complete Case Data
+complete_case <- master_df[complete.cases(master_df),]
+data <- complete_case %>% dplyr::select(ethnicity_cols, scientific_cols)
 
 #Read in shp
 census_shp <- st_read("data/Census-Tracts-(Tigerline)/tl_2023_06_tract.shp")
@@ -55,35 +75,11 @@ census_shp_remove0s <- census_shp
 census_shp_remove0s$GEOID <- gsub("^0", "", census_shp_remove0s$GEOID)
 
 #Join master and census shp
-shp_and_master <- right_join(census_shp_remove0s, master_df, by = join_by("GEOID" == "census_tract")) %>% clean_names()
+shp_and_master <- right_join(census_shp_remove0s,master_df, by = join_by("GEOID" == "census_tract")) %>% clean_names()
 shp_and_master$california_county <- paste0(shp_and_master$california_county, " County")
 
 #Create list of counties
 county_list <-  unique(county_shp$NAMELSAD)
-
-
-#Select all columns associated with ethnicity/population characteristics
-ethnicity_cols <- names(mysheets[[2]] %>% select(!c("Census Tract", "CES 4.0 Score", "CES 4.0 Percentile", "CES 4.0 Percentile Range", "California County")) %>% clean_names() %>% rename(
-  children_less_than_10_years_percent = children_10_years_percent,
-  pop_10_through_64_years_percent = pop_10_64_years_percent,
-  elderly_greater_than_64_years_percent = elderly_64_years_percent
-));ethnicity_cols
-
-#Select all columns associated with scientific measures and percentile variables
-scientific_cols <- names(mysheets[[1]] %>% select(!c("Census Tract", "CES 4.0 Percentile Range", "Total Population", "California County" ,"ZIP", "Approximate Location", "Longitude", "Latitude", "CES 4.0 Score", "CES 4.0 Percentile", "Pollution Burden", "Pop. Char." ), -matches("Pctl")) %>% clean_names() %>% rename(
-  pm_2.5 = pm2_5
-));scientific_cols
-
-#Percentile Columns
-scientific_cols_pctl <- names(mysheets[[1]] %>% select(!c("Census Tract", "CES 4.0 Percentile Range", "California County" ,"ZIP", "Approximate Location", "Longitude", "Latitude", "CES 4.0 Score", "CES 4.0 Percentile", "Pollution Burden", "Pop. Char." ), matches("Pctl")) %>% clean_names() %>% rename(
-  pm_2.5 = pm2_5
-) %>% select(matches("Pctl")));scientific_cols_pctl
-
-
-#Complete Case Data
-complete_case <- master_df[complete.cases(master_df),]
-data <- complete_case %>% dplyr::select(ethnicity_cols, scientific_cols)
-
 
 #list of variables to not choose
 unwanted_vars = c("statefp", "countyfp", "tractce", "geoid", "geoidfq", "name", "namelsad", "mtfcc", "longitude", "latitude", "funcstat", "aland", "awater", "intptlat", "intptlon","geometry")

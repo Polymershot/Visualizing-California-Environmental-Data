@@ -189,7 +189,7 @@ server <- function(input, output) {
     master_df %>% select(input$column)
   })
   
-  
+
   #Filter by County
   choose_shpmaster <- eventReactive(input$county, {
     shp_and_master %>% filter(california_county %in% input$county)
@@ -222,6 +222,23 @@ server <- function(input, output) {
     shp_and_master %>% select(input$color_col_city)
   })
   
+  
+  #Values for Seq()
+  county_val <- reactiveValues()
+  county_val$data <- NULL
+  
+  observe({
+    county_val$data <- as.data.frame(choose_color_col_county())
+    print(county_val$data[,1])
+  })
+  
+  city_val <- reactiveValues()
+  city_val$data <- NULL
+  
+  observe({
+    city_val$data <- as.data.frame(choose_color_col_city())
+  })
+  
   #Normality
   choose_normal_col <- eventReactive(input$normality_col, {
     master_df %>% select(input$normality_col)
@@ -231,18 +248,24 @@ server <- function(input, output) {
   #Dataset
   output$master_df <- renderDT(choose_column())
   
+  
+  #Color Palette
+  color_pattern = colorRampPalette(c('pink', 'darkred'))
+  
   #Filter by County
   output$countymap <- renderLeaflet(
     {
+      
     (mapview(choose_countyshp(), zcol = "NAMELSAD", burst = FALSE, alpha.regions= 0.1, lwd = 3, popup = FALSE) +
       mapview(choose_shpmaster(),
                zcol =input$color_col_county, 
-               col.regions = brewer.pal(7, "Dark2"), na.color = "#A9A9A9",
+               col.regions = color_pattern, at=seq(min(county_val$data[,1],na.rm = TRUE), max(county_val$data[,1], na.rm = TRUE), max(county_val$data[,1], na.rm = TRUE)/10), na.color = "#A9A9A9",
                popup = popupTable(choose_shpmaster(),
                                   zcol = colnames(choose_popup_cols_county())[1:(ncol(choose_popup_cols_county())-1)]
                )
        )
-  )@map
+    )@map
+      
   })
   
   
@@ -251,7 +274,7 @@ server <- function(input, output) {
     {
     (mapview(choose_shpmaster2(),
                  zcol =input$color_col_city, 
-                 col.regions = brewer.pal(7, "Dark2"), na.color = "#A9A9A9",
+                 col.regions = color_pattern, at=seq(min(city_val$data[,1], na.rm = TRUE), max(city_val$data[,1], na.rm = TRUE), max(city_val$data[,1], na.rm = TRUE)/10),  na.color = "#A9A9A9",
                  popup = popupTable(choose_shpmaster2(),
                                     zcol = colnames(choose_popup_cols_city())[1:(ncol(choose_popup_cols_city())-1)]
                                       
@@ -274,10 +297,6 @@ server <- function(input, output) {
       qqline(master_df[[input$normality_col]])
     }
   )
-  
-
- 
-
   
 }
 
