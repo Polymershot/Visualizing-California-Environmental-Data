@@ -21,6 +21,7 @@ library(ggpubr) #qqplot
 
 
 source("scripts/preprocessing.R")
+options("mapviewBasemaps" = c("Esri.WorldGrayCanvas", "Stadia.AlidadeSmoothDark", "OpenStreetMap", "Esri.WorldImagery", "OpenTopoMap"))
 
 # Define UI for application 
 ui <- dashboardPage(
